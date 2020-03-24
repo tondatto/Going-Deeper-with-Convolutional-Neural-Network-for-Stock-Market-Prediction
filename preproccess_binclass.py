@@ -72,19 +72,15 @@ def image2dataset(input, label_file):
     for filename in os.listdir(path):
         # print(filename)
         # print(os.getcwd())
-        if filename is not '':
-            for k, v in label_dict.items():
-                splitname = filename.split("_")
-                f, e = os.path.splitext(filename)
-                # print("[DEBUG] - {}".format(splitname))
-                newname = "{}_{}".format(splitname[0], splitname[1])
-                if newname == k:
-                    # print("{} same with {} with v {}".format(filename, k, v))
-                    new_name = "{}{}.png".format(v, f)
+        if filename.endswith("png") :
+            f, e = os.path.splitext(filename)
+            if f in label_dict:
+                v = label_dict[f]
 
-                    os.rename("{}/{}".format(path, filename),
-                              "{}/{}".format(path, new_name))
-                    break
+                new_name = "{}{}.png".format(v, f)
+
+                os.rename("{}/{}".format(path, filename),
+                          "{}/{}".format(path, new_name))
 
     folders = ['1', '0']
     for folder in folders:
