@@ -31,7 +31,7 @@ from datetime import timedelta
 
 
 def build_dataset(data_directory, img_width):
-    X, y, tags = dataset.dataset(data_directory, int(img_width))
+    X, y, tags = dataset(data_directory, int(img_width))
     nb_classes = len(tags)
 
     sample_count = len(y)
@@ -132,6 +132,8 @@ def main():
 
     model.compile(optimizer=Adam(lr=1.0e-4),
                   loss='categorical_crossentropy', metrics=['accuracy'])
+
+    model.summary()
 
     # Fit the model
     model.fit(X_train, Y_train, batch_size=batch_size, epochs=epochs)

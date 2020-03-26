@@ -11,7 +11,7 @@ from shutil import copyfile, move
 from pathlib import Path
 
 # https://github.com/matplotlib/mpl_finance
-from mpl_finance import candlestick2_ochl, volume_overlay
+from mpl_finance import candlestick2_ochl
 
 
 def isnan(value):
@@ -175,18 +175,19 @@ def ohlc2cs(fname, seq_len, dataset_type, dimension, use_volume):
 
             # create the second axis for the volume bar-plot
             # Add a seconds axis for the volume overlay
-            if use_volume:
-                ax2 = ax1.twinx()
-                # Plot the volume overlay
-                bc = volume_overlay(ax2, c['Open'], c['Close'], c['Volume'],
-                                    colorup='#77d879', colordown='#db3f3f', alpha=0.5, width=1)
-                ax2.add_collection(bc)
-                ax2.grid(False)
-                ax2.set_xticklabels([])
-                ax2.set_yticklabels([])
-                ax2.xaxis.set_visible(False)
-                ax2.yaxis.set_visible(False)
-                ax2.axis('off')
+            # if use_volume:
+            #     ax2 = ax1.twinx()
+            #     # Plot the volume overlay
+            #     bc = volume_overlay(ax2, c['Open'], c['Close'], c['Volume'],
+            #                         colorup='#77d879', colordown='#db3f3f', alpha=0.5, width=1)
+            #     ax2.add_collection(bc)
+            #     ax2.grid(False)
+            #     ax2.set_xticklabels([])
+            #     ax2.set_yticklabels([])
+            #     ax2.xaxis.set_visible(False)
+            #     ax2.yaxis.set_visible(False)
+            #     ax2.axis('off')
+
             pngfile = 'dataset/{}_{}/{}/{}/{}-{}.png'.format(
                 seq_len, dimension, symbol, dataset_type, fname[11:-4], i)
             fig.savefig(pngfile, pad_inches=0, transparent=False)

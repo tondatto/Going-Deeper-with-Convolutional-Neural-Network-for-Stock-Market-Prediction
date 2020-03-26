@@ -6,7 +6,7 @@ import sys
 import os
 from collections import defaultdict
 import numpy as np
-import scipy.misc
+import imageio
 
 
 def dataset(base_dir, n):
@@ -31,9 +31,9 @@ def dataset(base_dir, n):
     for class_index, class_name in enumerate(tags):
         filenames = d[class_name]
         for filename in filenames:
-            img = scipy.misc.imread(filename)
+            img = imageio.imread(filename)[:,:,:3]
             new_shape = (img.shape[0] * img.shape[1] * 3)
-            img_as_array = img[:, :, :3].reshape(new_shape)
+            img_as_array = img.reshape(new_shape)
             height, width, chan = img.shape
             assert chan == 3
             X.append(img_as_array)
